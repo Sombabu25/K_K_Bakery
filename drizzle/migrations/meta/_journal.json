@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789834389200,
+      "tag": "0000_bakery_commerce",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789834430989,
+      "tag": "0001_storage_policies_and_claim_admin",
+      "breakpoints": true
+    }
+  ]
+}

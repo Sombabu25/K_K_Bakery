@@ -1,0 +1,126 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system — K K Bakery
+ *
+ * Warm heritage-bakery palette: cream paper, deep cocoa ink, caramel
+ * and butterscotch accents. Display type is a classic serif (Fraunces),
+ * body is DM Sans. All colors defined here as oklch tokens.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-cocoa: var(--cocoa);
+  --color-cocoa-soft: var(--cocoa-soft);
+  --color-cream: var(--cream);
+  --color-cream-deep: var(--cream-deep);
+  --color-caramel: var(--caramel);
+  --color-caramel-deep: var(--caramel-deep);
+  --color-berry: var(--berry);
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 1rem;
+  --background: oklch(0.975 0.018 84);
+  --foreground: oklch(0.28 0.05 48);
+  --card: oklch(0.995 0.008 84);
+  --card-foreground: oklch(0.28 0.05 48);
+  --popover: oklch(0.995 0.008 84);
+  --popover-foreground: oklch(0.28 0.05 48);
+  --primary: oklch(0.52 0.12 48);
+  --primary-foreground: oklch(0.98 0.02 84);
+  --secondary: oklch(0.93 0.045 78);
+  --secondary-foreground: oklch(0.34 0.06 48);
+  --muted: oklch(0.94 0.03 80);
+  --muted-foreground: oklch(0.48 0.04 52);
+  --accent: oklch(0.78 0.13 72);
+  --accent-foreground: oklch(0.3 0.06 48);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 84);
+  --border: oklch(0.88 0.045 76);
+  --input: oklch(0.88 0.045 76);
+  --ring: oklch(0.62 0.12 60);
+  /* brand extras */
+  --cocoa: oklch(0.33 0.055 45);
+  --cocoa-soft: oklch(0.42 0.06 48);
+  --cream: oklch(0.975 0.018 84);
+  --cream-deep: oklch(0.945 0.035 80);
+  --caramel: oklch(0.78 0.13 72);
+  --caramel-deep: oklch(0.66 0.14 62);
+  --berry: oklch(0.55 0.14 20);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold tracking-[0.22em] uppercase text-caramel-deep;
+  }
+
+  .section-title {
+    @apply font-display text-3xl font-semibold tracking-tight text-cocoa sm:text-4xl;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-cocoa hover:shadow-md;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-cocoa/25 bg-card/70 px-6 py-3 text-sm font-semibold text-cocoa transition-all hover:border-cocoa hover:bg-card;
+  }
+
+  .badge-pill {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-card/80 px-3.5 py-1.5 text-xs font-semibold text-cocoa shadow-sm ring-1 ring-border;
+  }
+}
