@@ -13,7 +13,10 @@ import {
   Candy,
   ShoppingCart,
   Plus,
+  Menu,
+  X,
 } from "lucide-react";
+import { useState } from "react";
 
 import cakeRainbow from "@/assets/cake-rainbow.jpg";
 import cakeKitty from "@/assets/cake-kitty.jpg";
@@ -156,6 +159,8 @@ function Index() {
 }
 
 function SiteHeader() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-cream/85 backdrop-blur-md">
       <div className="container-page flex h-16 items-center justify-between">
@@ -173,11 +178,44 @@ function SiteHeader() {
             </a>
           ))}
         </nav>
-        <a href="#menu" className="btn-primary !px-5 !py-2.5">
-          <ShoppingCart className="h-4 w-4" />
-          Order Now
-        </a>
+        <div className="flex items-center gap-3">
+          <a href="#menu" className="hidden btn-primary !px-5 !py-2.5 sm:flex">
+            <ShoppingCart className="h-4 w-4" />
+            Order Now
+          </a>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden flex h-10 w-10 items-center justify-center rounded-full bg-cocoa text-primary-foreground"
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
+      {/* Mobile menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-border bg-cream px-4 py-4">
+          <nav className="flex flex-col gap-4">
+            {NAV.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-base font-medium text-cocoa transition-colors hover:text-caramel-deep"
+              >
+                {item.label}
+              </a>
+            ))}
+            <a
+              href="#menu"
+              onClick={() => setMobileMenuOpen(false)}
+              className="btn-primary !px-5 !py-2.5"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              Order Now
+            </a>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
@@ -190,46 +228,46 @@ function Hero() {
         className="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full bg-caramel/25 blur-3xl"
       />
       <div className="container-page grid items-center gap-12 py-16 md:grid-cols-2 md:py-24">
-        <div>
+        <div className="order-2 md:order-1">
           <span className="eyebrow">Ramanaidupeta · Machilipatnam · Since 1968</span>
-          <h1 className="mt-4 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-cocoa sm:text-5xl lg:text-6xl">
+          <h1 className="mt-4 font-display text-3xl font-semibold leading-[1.08] tracking-tight text-cocoa sm:text-4xl lg:text-6xl">
             Fresh bakes and custom cakes, made the K K way.
           </h1>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
+          <p className="mt-5 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base">
             For 58 years, families in Machilipatnam have celebrated with our cakes —
             birthday theme cakes, egg-less treats, fresh bread and pastries, baked
             fresh every day beside Revathi Theatre.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <a href="#menu" className="btn-primary">
+          <div className="mt-6 flex flex-wrap items-center gap-3 sm:mt-8">
+            <a href="#menu" className="btn-primary w-full justify-center sm:w-auto">
               <ShoppingCart className="h-4 w-4" />
               Order Now
             </a>
-            <a href="#menu" className="btn-outline">
+            <a href="#menu" className="btn-outline w-full justify-center sm:w-auto">
               <Cake className="h-4 w-4" />
               Custom Cake
             </a>
           </div>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <span className="badge-pill">
-              <Star className="h-3.5 w-3.5 fill-caramel text-caramel" />
+          <div className="mt-6 flex flex-wrap items-center gap-2 sm:mt-8">
+            <span className="badge-pill text-xs sm:text-sm">
+              <Star className="h-3 w-3 fill-caramel text-caramel sm:h-3.5 sm:w-3.5" />
               4.0 · 349 ratings
             </span>
-            <span className="badge-pill">
-              <Truck className="h-3.5 w-3.5" />
+            <span className="badge-pill text-xs sm:text-sm">
+              <Truck className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
               Home Delivery
             </span>
-            <span className="badge-pill">
-              <Cake className="h-3.5 w-3.5" />
+            <span className="badge-pill text-xs sm:text-sm">
+              <Cake className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
               Custom Cakes
             </span>
-            <span className="badge-pill">
-              <EggOff className="h-3.5 w-3.5" />
+            <span className="badge-pill text-xs sm:text-sm">
+              <EggOff className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
               Eggless Available
             </span>
           </div>
         </div>
-        <div className="relative">
+        <div className="relative order-1 md:order-2">
           <div className="overflow-hidden rounded-4xl shadow-xl ring-1 ring-border">
             <img
               src={cakeRainbow}
@@ -237,9 +275,9 @@ function Hero() {
               className="aspect-square w-full object-cover"
             />
           </div>
-          <div className="absolute -bottom-5 left-5 rounded-2xl bg-card px-5 py-3 shadow-lg ring-1 ring-border">
-            <p className="font-display text-lg font-semibold text-cocoa">58 years</p>
-            <p className="text-xs text-muted-foreground">of baking in Machilipatnam</p>
+          <div className="absolute -bottom-5 left-5 rounded-2xl bg-card px-4 py-2.5 shadow-lg ring-1 ring-border sm:px-5 sm:py-3">
+            <p className="font-display text-base font-semibold text-cocoa sm:text-lg">58 years</p>
+            <p className="text-[10px] text-muted-foreground sm:text-xs">of baking in Machilipatnam</p>
           </div>
         </div>
       </div>
@@ -396,15 +434,15 @@ function StorySection() {
             Three generations later, we still bake the way we always have: fresh
             every day, with egg-less options for every cake we make.
           </p>
-          <div className="mt-8 grid grid-cols-3 gap-4">
+          <div className="mt-8 grid grid-cols-3 gap-3 sm:gap-4">
             {[
               { value: "58", label: "years in business" },
               { value: "4.0★", label: "349 ratings" },
               { value: "10 pm", label: "open every day till" },
             ].map((stat) => (
-              <div key={stat.label} className="rounded-2xl bg-card p-4 text-center shadow-sm ring-1 ring-border">
-                <p className="font-display text-2xl font-semibold text-cocoa">{stat.value}</p>
-                <p className="mt-1 text-xs text-muted-foreground">{stat.label}</p>
+              <div key={stat.label} className="rounded-2xl bg-card p-3 text-center shadow-sm ring-1 ring-border sm:p-4">
+                <p className="font-display text-xl font-semibold text-cocoa sm:text-2xl">{stat.value}</p>
+                <p className="mt-1 text-[10px] text-muted-foreground sm:text-xs">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -468,7 +506,7 @@ function VisitSection() {
                   href={DIRECTIONS_URL}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-caramel px-6 py-3 text-sm font-semibold text-cocoa shadow-sm transition-all hover:bg-primary-foreground hover:shadow-md"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-caramel px-5 py-3 text-sm font-semibold text-cocoa shadow-sm transition-all hover:bg-primary-foreground hover:shadow-md w-full sm:w-auto"
                 >
                   <MapPin className="h-4 w-4" />
                   Get directions
@@ -477,7 +515,7 @@ function VisitSection() {
                   href={LISTING_URL}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-primary-foreground/30 px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-primary-foreground/30 px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10 w-full sm:w-auto"
                 >
                   <Phone className="h-4 w-4" />
                   Call us
